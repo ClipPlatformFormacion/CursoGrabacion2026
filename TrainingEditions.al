@@ -14,10 +14,15 @@ table 50101 "Training Edition"
         {
             CaptionML = ENU = 'Edition', ESP = 'Edición';
         }
-        field(3; Type; Option)
+        field(3; "Type (Option)"; Option)
         {
-            CaptionML = ENU = 'Type', ESP = 'Tipo';
-            OptionMembers = "Video Tutorial","Instructor-Led";
+            CaptionML = ENU = 'Type (Option)', ESP = 'Tipo (Option)';
+            OptionMembers = " ","Video Tutorial","Instructor-Led";
+            OptionCaptionML = ENU = ' ,Video Tutorial,Instructor-Led', ESP = ' ,Vídeo tutorial,Guiado por Instructor';
+        }
+        field(7; "Type (Enum)"; Enum "Edition Type")
+        {
+            CaptionML = ENU = 'Type (Enum)', ESP = 'Tipo (Enum)';
         }
         field(4; "Start Date"; Date)
         {
