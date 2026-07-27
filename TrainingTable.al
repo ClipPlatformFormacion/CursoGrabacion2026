@@ -1,6 +1,7 @@
 table 50100 Training
 {
     CaptionML = ENU = 'Training', ESP = 'Formación';
+    LookupPageId = "Training List";
 
     fields
     {
@@ -70,6 +71,12 @@ table 50100 Training
                 end;
             end;
         }
+    }
+
+    fieldgroups
+    {
+        fieldgroup(DropDown; "No.", Name, Price, "Language Code", "Duration (hours)") { }
+        fieldgroup(Brick; "No.", Name, "No. of Sessions") { }
     }
 
     local procedure CalcDurations()

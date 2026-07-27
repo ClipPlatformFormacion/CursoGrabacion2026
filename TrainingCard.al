@@ -41,4 +41,24 @@ page 50101 "Training Card"
             }
         }
     }
+    actions
+    {
+        area(Promoted)
+        {
+            actionref(TrainingEditionsPromoted; TrainingEditions) { }
+        }
+        area(Navigation)
+        {
+            action(TrainingEditions)
+            {
+                CaptionML = ENU = 'Editions', ESP = 'Ediciones';
+                RunObject = page "Training Editions";
+                RunPageLink = "Training No." = field("No.");
+                // Promoted = true;
+                // PromotedCategory = Category4;
+                // PromotedOnly = true; // Parece que no hace nada
+                // PromotedIsBig = true; // No hace nada en el cliente web
+            }
+        }
+    }
 }
