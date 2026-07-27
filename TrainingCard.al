@@ -39,6 +39,10 @@ page 50101 "Training Card"
                 field("No. of Sessions"; Rec."No. of Sessions") { }
                 field("Hours per session"; Rec."Hours per session") { }
             }
+            part(EditionsLines; "Training Editions Factbox")
+            {
+                SubPageLink = "Training No." = field("No.");
+            }
         }
     }
     actions
