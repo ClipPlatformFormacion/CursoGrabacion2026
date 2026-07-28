@@ -20,7 +20,7 @@ table 50100 Training
 
                 if "No." <> xRec."No." then begin
                     ResSetup.Get();
-                    NoSeries.TestManual(ResSetup."Resource Nos.");
+                    NoSeries.TestManual(ResSetup."Training Nos.");
                     "No. Series" := '';
                 end;
             end;
@@ -102,7 +102,7 @@ table 50100 Training
     }
 
     var
-        ResSetup: Record "Resources Setup";
+        ResSetup: Record "Training Setup";
         NoSeries: Codeunit "No. Series";
         Res: Record Training;
 
@@ -118,8 +118,8 @@ table 50100 Training
 
         if "No." = '' then begin
             ResSetup.Get();
-            ResSetup.TestField("Resource Nos.");
-            "No. Series" := ResSetup."Resource Nos.";
+            ResSetup.TestField("Training Nos.");
+            "No. Series" := ResSetup."Training Nos.";
             if NoSeries.AreRelated("No. Series", xRec."No. Series") then
                 "No. Series" := xRec."No. Series";
             "No." := NoSeries.GetNextNo("No. Series");
@@ -149,8 +149,8 @@ table 50100 Training
 
         Res := Rec;
         ResSetup.Get();
-        ResSetup.TestField("Resource Nos.");
-        if NoSeries.LookupRelatedNoSeries(ResSetup."Resource Nos.", OldRes."No. Series", Res."No. Series") then begin
+        ResSetup.TestField("Training Nos.");
+        if NoSeries.LookupRelatedNoSeries(ResSetup."Training Nos.", OldRes."No. Series", Res."No. Series") then begin
             Res."No." := NoSeries.GetNextNo(Res."No. Series");
             Rec := Res;
             exit(true);
