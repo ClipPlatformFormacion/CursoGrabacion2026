@@ -2,7 +2,7 @@ page 50104 "Training Setup"
 {
     AccessByPermission = TableData Training = R;
     ApplicationArea = Jobs;
-    Caption = 'Training Setup';
+    CaptionML = ENU = 'Training Setup', ESP = 'Conf. formaciones';
     DeleteAllowed = false;
     InsertAllowed = false;
     PageType = Card;
@@ -15,11 +15,10 @@ page 50104 "Training Setup"
         {
             group(Numbering)
             {
-                Caption = 'Numbering';
+                CaptionML = ENU = 'Numbering', ESP = 'Numeración';
                 field("Training Nos."; Rec."Training Nos.")
                 {
                     ApplicationArea = Jobs;
-                    ToolTip = 'Specifies the number series code you can use to assign numbers to resources.';
                 }
             }
         }

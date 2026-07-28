@@ -19,8 +19,8 @@ table 50100 Training
                     exit;
 
                 if "No." <> xRec."No." then begin
-                    ResSetup.Get();
-                    NoSeries.TestManual(ResSetup."Training Nos.");
+                    TrainingSetup.Get();
+                    NoSeries.TestManual(TrainingSetup."Training Nos.");
                     "No. Series" := '';
                 end;
             end;
@@ -89,7 +89,7 @@ table 50100 Training
         }
         field(56; "No. Series"; Code[20])
         {
-            Caption = 'No. Series';
+            CaptionML = ENU = 'No. Series', ESP = 'No. Serie';
             Editable = false;
             TableRelation = "No. Series";
         }
@@ -102,13 +102,13 @@ table 50100 Training
     }
 
     var
-        ResSetup: Record "Training Setup";
+        TrainingSetup: Record "Training Setup";
         NoSeries: Codeunit "No. Series";
-        Res: Record Training;
+        Training: Record Training;
 
     trigger OnInsert()
     var
-        Resource: Record Training;
+        Training2: Record Training;
         IsHandled: Boolean;
     begin
         IsHandled := false;
@@ -117,15 +117,15 @@ table 50100 Training
             exit;
 
         if "No." = '' then begin
-            ResSetup.Get();
-            ResSetup.TestField("Training Nos.");
-            "No. Series" := ResSetup."Training Nos.";
+            TrainingSetup.Get();
+            TrainingSetup.TestField("Training Nos.");
+            "No. Series" := TrainingSetup."Training Nos.";
             if NoSeries.AreRelated("No. Series", xRec."No. Series") then
                 "No. Series" := xRec."No. Series";
             "No." := NoSeries.GetNextNo("No. Series");
-            Resource.ReadIsolation(IsolationLevel::ReadUncommitted);
-            Resource.SetLoadFields("No.");
-            while Resource.Get("No.") do
+            Training2.ReadIsolation(IsolationLevel::ReadUncommitted);
+            Training2.SetLoadFields("No.");
+            while Training2.Get("No.") do
                 "No." := NoSeries.GetNextNo("No. Series");
         end;
     end;
@@ -138,37 +138,37 @@ table 50100 Training
         Rec."Hours per session" := Rec."Duration (hours)" / Rec."No. of Sessions";
     end;
 
-    procedure AssistEdit(OldRes: Record Training) Result: Boolean
+    procedure AssistEdit(OldTraining: Record Training) Result: Boolean
     var
         IsHandled: Boolean;
     begin
         IsHandled := false;
-        OnBeforeAssistEdit(Rec, OldRes, IsHandled, Result);
+        OnBeforeAssistEdit(Rec, OldTraining, IsHandled, Result);
         if IsHandled then
             exit(Result);
 
-        Res := Rec;
-        ResSetup.Get();
-        ResSetup.TestField("Training Nos.");
-        if NoSeries.LookupRelatedNoSeries(ResSetup."Training Nos.", OldRes."No. Series", Res."No. Series") then begin
-            Res."No." := NoSeries.GetNextNo(Res."No. Series");
-            Rec := Res;
+        Training := Rec;
+        TrainingSetup.Get();
+        TrainingSetup.TestField("Training Nos.");
+        if NoSeries.LookupRelatedNoSeries(TrainingSetup."Training Nos.", OldTraining."No. Series", Training."No. Series") then begin
+            Training."No." := NoSeries.GetNextNo(Training."No. Series");
+            Rec := Training;
             exit(true);
         end;
     end;
 
     [IntegrationEvent(false, false)]
-    local procedure OnBeforeValidateNo(var Resource: Record Training; xResource: Record Training; var IsHandled: Boolean)
+    local procedure OnBeforeValidateNo(var Training: Record Training; xTraining: Record Training; var IsHandled: Boolean)
     begin
     end;
 
     [IntegrationEvent(false, false)]
-    local procedure OnBeforeOnInsert(var Resource: Record Training; var IsHandled: Boolean; var xResource: Record Training)
+    local procedure OnBeforeOnInsert(var Training: Record Training; var IsHandled: Boolean; var xTraining: Record Training)
     begin
     end;
 
     [IntegrationEvent(false, false)]
-    local procedure OnBeforeAssistEdit(var Resource: Record Training; xOldRes: Record Training; var IsHandled: Boolean; var Result: Boolean)
+    local procedure OnBeforeAssistEdit(var Training: Record Training; xOldTraining: Record Training; var IsHandled: Boolean; var Result: Boolean)
     begin
     end;
 }
