@@ -28,15 +28,30 @@ table 50100 Training
         field(2; Name; Text[100])
         {
             CaptionML = ENU = 'Name', ESP = 'Nombre';
+
+            trigger OnValidate()
+            begin
+                UpdateResource();
+            end;
         }
         field(3; Price; Decimal)
         {
             CaptionML = ENU = 'Price', ESP = 'Precio';
             BlankZero = true;
+
+            trigger OnValidate()
+            begin
+                UpdateResource();
+            end;
         }
         field(4; Blocked; Boolean)
         {
             CaptionML = ENU = 'Blocked', ESP = 'Bloqueado';
+
+            trigger OnValidate()
+            begin
+                UpdateResource();
+            end;
         }
         field(5; "Language Code"; Code[10])
         {
@@ -155,6 +170,21 @@ table 50100 Training
             Rec := Training;
             exit(true);
         end;
+    end;
+
+    local procedure UpdateResource()
+    var
+        Resource: Record Resource;
+    begin
+        Resource.SetRange("Training No.", Rec."No.");
+        if Resource.IsEmpty() then
+            exit;
+
+        Resource.FindFirst();
+        Resource.Validate(Name, Rec.Name);
+        Resource.Validate("Unit Price", Rec.Price);
+        Resource.Validate(Blocked, Rec.Blocked);
+        Resource.Modify(true);
     end;
 
     [IntegrationEvent(false, false)]
