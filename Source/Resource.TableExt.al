@@ -11,6 +11,7 @@ tableextension 50100 Resource extends Resource
             var
                 Training: Record Training;
                 Resource: Record Resource;
+                TrainingSetup: Record "Training Setup";
                 TrainingNotUnique: TextConst ENU = 'There are other resources bound to training %1', ESP = 'Existen otros recursos vinculados a la formación %1';
             begin
                 if Rec."Training No." = '' then
@@ -26,6 +27,14 @@ tableextension 50100 Resource extends Resource
                 Rec.Validate(Name, Training.Name);
                 Rec.Validate("Unit Price", Training.Price);
                 Rec.Validate(Blocked, Training.Blocked);
+
+                TrainingSetup.Get();
+                TrainingSetup.TestField("Gen. Prod. Posting Group");
+                TrainingSetup.TestField("VAT Prod. Posting Group");
+                TrainingSetup.TestField("Base Unit of Measure");
+                Rec.Validate("Gen. Prod. Posting Group", TrainingSetup."Gen. Prod. Posting Group");
+                Rec.Validate("VAT Prod. Posting Group", TrainingSetup."VAT Prod. Posting Group");
+                Rec.Validate("Base Unit of Measure", TrainingSetup."Base Unit of Measure");
             end;
         }
     }

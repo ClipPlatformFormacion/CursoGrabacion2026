@@ -13,6 +13,13 @@ page 50104 "Training Setup"
     {
         area(content)
         {
+            group(Invoicing)
+            {
+                CaptionML = ENU = 'Invoicing', ESP = 'Facturación';
+                field("Gen. Prod. Posting Group"; Rec."Gen. Prod. Posting Group") { }
+                field("VAT Prod. Posting Group"; Rec."VAT Prod. Posting Group") { }
+                field("Base Unit of Measure"; Rec."Base Unit of Measure") { }
+            }
             group(Numbering)
             {
                 CaptionML = ENU = 'Numbering', ESP = 'Numeración';
