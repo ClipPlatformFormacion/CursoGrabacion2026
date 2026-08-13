@@ -11,6 +11,7 @@ tableextension 50100 Resource extends Resource
             var
                 Training: Record Training;
                 Resource: Record Resource;
+                TrainingNotUnique: TextConst ENU = 'There are other resources bound to training %1', ESP = 'Existen otros recursos vinculados a la formación %1';
             begin
                 if Rec."Training No." = '' then
                     exit;
@@ -18,7 +19,7 @@ tableextension 50100 Resource extends Resource
                 Resource.SetRange("Training No.", Rec."Training No.");
                 Resource.SetFilter("No.", '<>%1', Rec."No.");
                 if not Resource.IsEmpty() then
-                    Error('Existen otros recursos vinculados a la formación %1', Rec."Training No.");
+                    Error(TrainingNotUnique, Rec."Training No.");
 
                 Rec.Validate(Type, Enum::"Resource Type"::Training);
                 Training.Get(Rec."Training No.");

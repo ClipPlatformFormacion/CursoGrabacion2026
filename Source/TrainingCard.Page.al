@@ -57,6 +57,7 @@ page 50101 "Training Card"
         area(Promoted)
         {
             actionref(TrainingEditionsPromoted; TrainingEditions) { }
+            actionref(CreateResourcePromoted; CreateResource) { }
         }
         area(Navigation)
         {
@@ -69,6 +70,28 @@ page 50101 "Training Card"
                 // PromotedCategory = Category4;
                 // PromotedOnly = true; // Parece que no hace nada
                 // PromotedIsBig = true; // No hace nada en el cliente web
+            }
+        }
+        area(Processing)
+        {
+            action(CreateResource)
+            {
+                CaptionML = ENU = 'Create Resource', ESP = 'Crear recurso';
+
+                trigger OnAction()
+                var
+                    Resource: Record Resource;
+                    ActionExecutedSuccesfully: TextConst ENU = 'Resource %1 created successfully', ESP = 'Recurso %1 creado correctamente';
+                begin
+                    Resource.Init();
+                    Resource.Validate("No.", Rec."No.");
+                    Resource.Insert(true);
+
+                    Resource.Validate("Training No.", Rec."No.");
+                    Resource.Modify(true);
+
+                    Message(ActionExecutedSuccesfully, Resource."No.");
+                end;
             }
         }
     }
