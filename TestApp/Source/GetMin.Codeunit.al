@@ -1,14 +1,9 @@
 codeunit 90002 GetMin
 {
-    procedure GetMin(P1: Integer; P2: Integer): Integer
+    procedure GetMin(P1: Integer; P2: Integer) Resultado: Integer
     begin
-        case true of
-            P1 < P2:
-                exit(P1);
-            P2 < P1:
-                exit(P2);
-            else
-                exit(P1);
-        end;
+        Resultado := P1;
+        if P2 < P1 then
+            Resultado := P2;
     end;
 }
